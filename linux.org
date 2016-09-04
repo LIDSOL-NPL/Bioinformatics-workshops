@@ -1,0 +1,1266 @@
+* Manual de GNU/Linux [fn:1]
+** Historia 
+ 
+1968 General Electric, AT&T Bell Laboratories y el Massachusetts Institute of Technology inician
+el  desarrollo de  MULTICS (MULTiplexal  Information  Computing System,  Sistema de  Computación
+Información Multiplexada).
+ 
+1969   Ken  Thompson,  Dennis   Ritchie  y   AT&T  Bell   Laboratories  desarrollan   UNIX  para
+microcomputadoras.
+ 
+1973 Dennis Ritchie colaboró con Ken Thompson para  escribir el código de UNIX en lenguaje C (lo
+que añadió portabilidad).
+ 
+1974 Universidad de California, Berkeley, se  convierte en usuario UNIX y añade nuevas funciones
+al sistema.
+ 
+1975 Universidad  de Berkeley  lanza su  propia distribución de  UNIX llamada  Berkeley Software
+Distribution (BSD). Y se convierte en un fuerte rival de UNIX de AT&T de Bell Labs.
+ 
+1980 Microsoft desarrolla la versión para PC de UNIX llamada XENIX.
+ 
+1983 AT&T  pone en circulación la  primera versión comercial  llamándola System 3 seguida  de la
+versión System V.
+ 
+Berkeley lanza BSD versión 4.2 con  avanzada administración de archivos, y potentes funciones de
+red basadas en TCP/IP, los mismos protocolos que se usan hoy para internet.
+ 
+80's  Andrew Tannebaum crea  MINIX una  versión de  UNIX pequeña y muy funcional para cuestiones
+educativas y esta fue propagada por todo el mundo a través de internet.
+ 
+Un estudiante de Helsinki Finlandia llamado Linus Torvalds intenta crear una versión efectiva de
+UNIX para PC's que pudiesen utilizar los usuarios de MINIX. La llamo LINUX.
+ 
+1991 UNIX System Laboratories desarrolla System  V versión 4, incorporando funciones de System V
+versión 3, BSD versión 4.3, Sun OS y Xenix.
+ 
+Linus Torvalds en un comunicado de prensa lanza la versión 0.11 de LINUX
+ 
+1993 AT&T vende todas sus participaciones a Novell. 
+ 
+** Estructura
+ 
+- Núcleo. Programa base que ejecuta programas y administra los dispositivos de hardware (discos,
+  impresoras, etc).
+ 
+- Entorno. Interfaz para el usuario, recibe instrucciones del usuario y los envía al kernel para
+  que los ejecute.
+ 
+- Estructura de  archivos.  Modo  en el  que se  almacenan los  archivos en  un  dispositivo de
+  almacenamiento.
+  
+** Entorno 
+
+Es  un programa  que  se ejecuta  en  el espacio  de  usuario que  le  proporciona una  interfaz
+interactiva con el sistema (línea de comandos) para introducir datos o especificar programas que
+quiera ejecutar.
+ 
+Algunos entornos existentes son:
+
+Básicos
+
+- Shell C.- Bourne (Bell Labs) desarrollado para System V.
+- Shell C.- Desarrollado para la versión BSD de UNIX.
+- Shell Korn.- Versión mejorada de Shell Bourne.
+- Bourne again.- (Default de LINUX)
+ 
+*** Escritorio 
+
+El escritorio,  es una manera  fácil de moverse  por el sistema  así no tenemos  que aprendernos
+comandos ya que los componentes del escritorio son a base de gráficos.
+ 
+Los escritorios más comunes son:
+
+- GNOME (GNU Network Object Model Environment  (Entorno de trabajo en red orientado a objetos de
+  GNU))
+- KDE (K Desktop Environment (Entorno de escritorio K))
+  
+** Árbol de directorios
+
+El estándar  FHS (Filesystem Hierarchy  Standard) define como  se organizan los  directorios del
+sistema para los usuarios de Unix. La versión actual de este estándar es la 2.3.  Este documento
+es una síntesis con fines educativos.
+
+El estándar permite:
+1. Al instalador de software predecir la localización de archivos y directorios.
+2. Al usuario, saber la localización de los archivos instalados y directorios.
+
+*** Tipo de contenido
+
+El contenido de los directorios puede ser de los siguientes tipos:
+
+1. Contenido estático. Archivos que no deben cambiar a menos que un administrador lo indique.
+2. Contenido variable. Archivos que no cumplen con la condición de ser contenido estático.
+3. Contenido compartible. Archivos que pueden ser usados en uno o más sistemas.
+4. Contenido no compartible. Archivos únicos para el uso del sistema.
+
+Ejemplo:
+
+|----------+-----------------+----------------|
+|          | Compartible     | No compartible |
+|----------+-----------------+----------------|
+| Estático | /usr            | /etc           |
+|          | /opt            | /boot          |
+|----------+-----------------+----------------|
+| Variable | /var/mail       | /var/run       |
+|          | /var/spool/news | /var/lock      |
+|----------+-----------------+----------------|
+
+*** Directorios principales
+
+Los siguientes directorios deben estar presentes en la raíz del sistema:
+
+|------------+--------------------------------------------------------------------------------|
+| Directorio | Descripción                                                                    |
+| /bin       | Programas esenciales para el funcionamiento del sistema                        |
+| /boot      | Archivos estáticos del gestor de arranque                                      |
+| /dev       | Archivos de dispositivos                                                       |
+| /etc       | Archivos de configuración del sistema local                                    |
+| /lib       | Librerías básicas compartibles y módulos del núcleo                            |
+| /media     | Puntos de montaje para dispositivos externos                                   |
+| /mnt       | Puntos de montaje para sistemas de archivos temporales                         |
+| /opt       | Extensiones de programas y/o paquetes de software que no pertenecen al sistema |
+| /sbin      | Programas esenciales de administración del sistema                             |
+| /srv       | Datos de los servicios proporcionados por el sistema                           |
+| /tmp       | Archivos temporales                                                            |
+| /usr       | Jerarquía secundaria para datos compartidos de solo lectura                    |
+| /var       | Datos variables                                                                |
+|------------+--------------------------------------------------------------------------------|
+
+*** Requisitos de /bin
+
+En el directorio /bin deben encontrarse al menos los siguientes programas:
+
+|----------+------------------------------------------------------------|
+| Comando  | Descripción                                                |
+|----------+------------------------------------------------------------|
+| cat      | Concatena archivos a la salida estándar                    |
+| chgrp    | Cambia el grupo propietario de un archivo                  |
+| chmod    | Cambia los permisos de acceso de un archivo                |
+| chown    | Cambia el propietario y el grupo propietario de un archivo |
+| cp       | Copia archivos y directorios                               |
+| date     | Imprime y cambia la fecha y hora                           |
+| dd       | Convierte y copia archivos                                 |
+| df       | Indica el espacio utilizado en el sistema de archivos      |
+| dmesg    | Imprime el buffer de mensajes del núcleo                   |
+| echo     | Despliega una línea de texto                               |
+| false    | Utilidad para "no hacer nada", útil en casos de error      |
+| hostname | Muestra y cambia el nombre del sistema local               |
+| kill     | Envía señales a los procesos                               |
+| ln       | Crea enlaces entre archivos                                |
+| login    | Inicia una sesión en el sistema                            |
+| ls       | Lista el contenido de un directorio                        |
+| mkdir    | Crea un directorio                                         |
+| mknod    | Crea archivos especiales de bloques o caracteres           |
+| more     | Paginador de archivos                                      |
+| mount    | Monta un sistema de archivos                               |
+| mv       | Mueve y renombra archivos                                  |
+| ps       | Reporta el estado de los procesos                          |
+| pwd      | Imprime el nombre del directorio actual                    |
+| rm       | Elimina archivos y directorios                             |
+| rmdir    | Elimina directorios vacíos                                 |
+| sed      | Editor de línea                                            |
+| sh       | The Bourne command shell                                   |
+| stty     | Cambia e imprime las opciones de la línea de comandos      |
+| su       | Cambio de usuario                                          |
+| sync     | Vacía los buffers del sistema                              |
+| true     | Utilidad para "hacer algo", útil en casos de éxito         |
+| umount   | Desmonta sistema de archivos                               |
+| uname    | Imprime la información del sistema                         |
+|----------+------------------------------------------------------------|
+
+**** Programas opcionales para /bin
+
+|---------+---------------------------------------------------|
+| Comando | Descripción                                       |
+|---------+---------------------------------------------------|
+| csh     | The C shell                                       |
+| ed      | Editor de texto                                   |
+| tar     | Archivador de cinta                               |
+| cpio    | Copia archivos hacia y desde otro (tar)           |
+| gzip    | Comprime archivos                                 |
+| gunzip  | Comprime y descomprime archivos                   |
+| zcat    | Descomprime archivos concatenándolos a una salida |
+| netstat | Imprime estadísticas de red                       |
+| ping    | Realiza una prueba de red con el protocolo  ICMP  |
+|---------+---------------------------------------------------|
+
+*** Requisitos de /dev
+
+Es recomendable que el contenido del directorio  /dev sea creado manualmente, para eso existe la
+herramienta  MAKEDEV. Sin  embargo, esto  no sucede  en el  núcleo Linux  ya que  éste  crea los
+archivos automáticamente.
+
+*** Requisitos de /etc
+
+En /etc no pueden  existir archivos ejecutables  pues solo  guarda archivos que  controlan como
+funcionará  algún programa instalado.  En el  directorio /etc  deben encontrarse  los siguientes
+subdirectorios:
+
+|------------+------------------------------------------------------|
+| Directorio | Descripción                                          |
+|------------+------------------------------------------------------|
+| opt        | Configuración de las extensiones localizadas en /opt |
+| X11        | Configuración del servidor de ventanas X             |
+| sgml       | Configuración de SGML                                |
+| xml        | Configuración de XML                                 |
+|------------+------------------------------------------------------|
+
+Además los siguientes  archivos de configuración deben estar en /etc,  sin embargo es importante
+mencionar que  existe la  posibilidad de  que alguno de  estos archivos  no exista,  depende del
+sistema operativo empleado:
+
+|-------------+--------------------------------------------------------------------------------|
+| Archivo     | Descripción                                                                    |
+|-------------+--------------------------------------------------------------------------------|
+| csh.login   | Configuración del sistema de C shell, afectará a todos los usuarios            |
+| exports     | Lista de control de acceso de NFS                                              |
+| fstab       | Información estática de los sistemas de archivos                               |
+| ftpusers    | Lista de control de acceso de FTP                                              |
+| gateways    | Lista de puertas de enlace para el direccionamiento en la red                  |
+| gettydefs   | Configuración de getty                                                         |
+| group       | Lista de grupos de usuarios                                                    |
+| host.conf   | Configura el orden de los sistema de resolución de nombres                     |
+| hosts       | Lista estática de resolución de nombres                                        |
+| hosts.allow | Lista de dir. IP para su acceso a la máquina local con conexiones TCP          |
+| hosts.deny  | Lista de dir. IP para su restricción a la máquina local con conexiones TCP     |
+| hosts.equiv | Lista de máquinas y nombres de usuario que pueden accesar con rlogin, rsh, rcp |
+| hosts.lpd   | Lista de máquinas que pueden acceder con lpd                                   |
+| inetd.conf  | Configuración de inetd                                                         |
+| inittab     | Configuración de init                                                          |
+| issue       | Mensaje de bienvenida e identificación (antes de la autenticación)             |
+| ld.so.conf  | Lista los directorios adicionales para buscar librerías compartidas            |
+| motd        | Mensaje de bienvenida (después de la autenticación)                            |
+| mtab        | Contiene información dinámica de los sistemas de archivos montados             |
+| mtools.conf | Configuración de mtools (utilerías de MS-DOS)                                  |
+| networks    | Información estática acerca que relaciona dir. IP y nombres de red [fn:2]      |
+| passwd      | Lista de usuarios                                                              |
+| printcap    | Base de datos de impresoras para lpd                                           |
+| profile     | Configuración del sistema de sh shell, afectará a todos los usuarios           |
+| protocols   | Lista de puertos escucha para el protocolo IP                                  |
+| resolv.conf | Archivo de configuración de la resolución de nombres                           |
+| rpc         | Lista de puertos escucha para el protocolo IP                                  |
+| securetty   | Lista de terminales donde puede iniciar sesión el usuario root                 |
+| services    | Lista de puertos para servicios de red                                         |
+| shells      | Rutas de las sh shell válidas                                                  |
+| syslog.conf | Configuración de syslogd                                                       |
+|-------------+--------------------------------------------------------------------------------|
+
+**** Niveles de ejecución
+
+Otros directorios importantes son  la serie /etc/rcX.d/ donde X es un número  entre 0 y 6. Estos
+directorios responden a los niveles de ejecución del sistema System V que es usado en la mayoría
+de las distribuciones GNU/Linux. System V [fn:3] distingue los siguientes niveles de ejecución:
+
+Para distribuciones basadas en RedHat
+
+ - 0: Apagado
+ - 1: Modo monousuario
+ - 2: Modo multiusuario sin funciones de red
+ - 3: Modo multiusuario
+ - 4: Definido por el administrador
+ - 5: X11
+ - 6: Reinicio
+
+Para distribuciones basadas en Debian
+
+ - 0: Apagado
+ - 1: Modo monousuario
+ - 2: Predeterminadamente son niveles multiusuario idénticos.
+ - 6: Reinicio
+
+Cada carpeta /etc/rcX.d/ contiene enlaces a archivos almacenados en /etc/init.d/. Estos archivos
+son  llamados guiones  de inicio  que contienen  instrucciones sobre  el inicio  y  detención de
+servicios  del sistema.  dentro de  las  carpetas /etc/rcX.d/  los enlaces  tienen la  siguiente
+estructura:
+
+[K|S][dd][nombre del servicio]
+
+Donde:
+
+ - Si es  K el servicio  se detiene en  ese nivel de  ejecución (Kill). Si  es S el  servicio se
+   inicia en ese nivel de ejecución (Start)
+ - Las  letras dd corresponden  a dos  dígitos que  definen el  orden en  que los  guiones serán
+   ejecutados. Ejemplo: si dd=00 este guión será ejecutado antes de dd=99
+   
+*** Requisitos de /home
+
+Es común encontrar  en los sistemas el directorio /home. Las  características de este directorio
+son que  no debe contener  archivos ejecutables  y que su  uso esta destinado  específicamente a
+guardar  los datos  de los  usuarios excepto  los  del usuario  root. Para  el caso  de root  se
+recomienda crear y usar el directorio /root que al igual que /home su creación es opcional.
+
+*** Requisitos de /lib
+
+Por otra parte, el directorio /lib contiene al menos estos dos archivos:
+
+|-----------+-----------------------------------|
+| Librería  | Descripción                       |
+|-----------+-----------------------------------|
+| libc.so.* | Librería C enlazada dinámicamente |
+| ld*       | Enlazador en tiempo de ejecución  |
+|-----------+-----------------------------------|
+
+Además  /lib/modules  se refiere  al  directorio  donde son  guardados  los  módulos del  núcleo
+compilado para el sistema.
+
+*** Requisitos de /opt
+
+El directorio /opt esta reservado para programas  y extensiones de programas que no forman parte
+de la una instalación por defecto. Cualquier programa instalado en este directorio debe contener
+archivos estáticos y generalmente hay tres maneras de organización de este directorio:
+
+1. Por programa
+2. Por proveedor de software
+3. Recreando carpetas /opt/bin, /opt/lib etc. 
+
+*** Requisitos de /srv
+
+El directorio /srv no  es común verlo en los sistemas tipo  Linux. Este directorio debe contener
+todos los datos  de los servicios que  ofrece el sistema. El estándar  recomienda organizar este
+directorio por protocolo /srv/ftp, /srv/www, etc.
+
+*** Requisitos de /usr
+
+El  directorio /usr  es para  contenido compartible  y de  solo lectura.  En este  directorio se
+requiere la siguiente estructura mínima:
+
+|------------+--------------------------------------------------------------|
+| Directorio | Descripción                                                  |
+|------------+--------------------------------------------------------------|
+| bin        | Programas para el usuario                                    |
+| include    | Cabeceras de lenguaje C                                      |
+| lib        | Librerías                                                    |
+| local      | Árbol local de directorios (vacío en una instalación básica) |
+| sbin       | Programas de sistema que no son esenciales                   |
+| share      | Datos independientes de la arquitectura                      |
+|------------+--------------------------------------------------------------|
+
+**** Archivos optativos
+
+Además también podrían estar presentes los siguientes directorios y enlaces:
+
+|------------+--------------------------------------|
+| Directorio | Descripción                          |
+|------------+--------------------------------------|
+| X11        | Correspode al servidor de ventanas X |
+| games      | Juegos y programas educativos        |
+| lib<qual>  | Librerías alternas                   |
+| src        | Códigos fuente                       |
+|------------+--------------------------------------|
+
+|------------------+------------|
+| Fuente           | Destino    |
+|------------------+------------|
+| /usr/spool       | /var/spool |
+| /usr/tmp         | /var/tmp   |
+| /usr/spool/locks | /var/lock  |
+|------------------+------------|
+
+**** Jerarquía de manuales
+
+En el directorio /usr/share/man se encuentran los  manuales que son visibles con el comando man,
+cuyo orden es el siguiente:
+
+ - man1: Manuales de programas de usuario y documentación para el usuario.
+ - man2: Llamadas  al sistema. Describe principalmente  las peticiones al  núcleo para optimizar
+   operaciones.
+ - man3: Librerías  y subrutinas.  Describe las  instrucciones que no  son llamadas  directas al
+   núcleo.
+ - man4: Archivos especiales. Archivos incluidos  en /dev, todo lo relacionado con controladores
+   o módulos.
+ - man5: Formatos de archivos especiales. Incluye archivos alojados en /etc.
+ - man6: Documenta, juegos, demos y programas sumarios.
+ - man7: Otros manuales difícilmente clasificables.
+ - man8: Programas de administración del sistema
+
+*** Requisitos de /var
+
+El  directorio  /var  contiene  directorios  y archivos,  datos  administrativos,  temporales  y
+bitácoras.
+
+Algunos  archivos y directorios  contenidos en  /var no  son compartibles  mientras otros  si lo
+son. El contenido mínimo de /var es el siguiente:
+
+|------------+---------------------------------------------------------|
+| Directorio | Descripción                                             |
+|------------+---------------------------------------------------------|
+| cache      | Datos de caché                                          |
+| lib        | Información variable de estado                          |
+| local      | Datos variables correspondientes a /usr/local           |
+| lock       | Archivos de bloque                                      |
+| log        | Bitácoras del sistema                                   |
+| opt        | Datos variables de /opt                                 |
+| run        | Datos de procesos                                       |
+| spool      | Datos variables correspondientes a spool                |
+| tmp        | Archivos temporales conservados al reiniciar el sistema |
+|------------+---------------------------------------------------------|
+|            |                                                         |
+
+** Comandos de ayuda 
+ 
+- man: Formatea y muestra las páginas del manual.
+ 
+Ejemplo: man ls (muestra el manual de ls)
+ 
+- whatis:  Busca una palabra clave en  su base de datos  y busca todas las  descripciones de los
+comandos que contengan una palabra idéntica.
+ 
+Ejemplo: whatis ls (Muestra la descripción de ls).
+ 
+- apropos: Busca  la palabra clave en la  base de datos de whatis que  contiene descripciones de
+los  comandos, mostrando  las descripciones  donde se  encuentra una  referencia con  la palabra
+clave.
+ 
+Ejemplo: apropos ls (muestra todas las descripciones donde aparece como referencia ls)
+ 
+- info: Muestra información sobre la versión de cierto programa instalado.
+  
+** Comandos para la administración de directorios y archivos 
+ 
+- cd: Cambia de directorio. 
+ 
+Ejemplos: 
+cd (nos lleva al directorio del usuario actual) 
+cd /var (se cambia al directorio /var) 
+cd / (nos cambia al directorio raiz) 
+ 
+- pwd: Muestra la ruta actual. 
+ 
+- ls: Lista el contenido de un directorio. 
+
+Ejemplos:
+ls -a  Muestra todos los  ficheros incluyendo algunos  que ordinariamente están ocultos  para el
+usuario (aquellos que comienzan por un punto). Se  recuerda que el fichero punto " . " indica el
+directorio actual y el doble punto " .. " el directorio padre, que contiene, al actual.
+  
+-l: Esta es  la opción de lista larga:  muestra toda la información de  cada fichero incluyendo:
+protecciones, tamaño y fecha de creación o del último cambio introducido.
+
+| Tipo | Permisos   | No. Enlaces | Dueño   | Grupo | Tamaño | Fecha creación | Nombre    |
+|------+------------+-------------+---------+-------+--------+----------------+-----------|
+| D    | -rw-r--r-- |           1 | usuario | grupo |   1024 | Dic 21 20:30   | carta.txt |
+
+-c: Muestra ordenando por día y hora de creación. 
+-t: Muestra ordenando por día y hora de modificación. 
+-r: Muestra el directorio y lo ordena en orden inverso. 
+ 
+- clear: Realiza un limpiado a la pantalla. 
+ 
+- file: Determina de que tipo es el archivo 
+ 
+Ejemplo: file archivo  
+ 
+- mkdir: Crea un directorio. 
+ 
+Ejemplo: mkdir misdocumentos 
+ 
+- rmdir: Elimina un directorio vacío. 
+ 
+Opciones: 
+-r : elimina los directorios recursivamente. 
+ 
+Ejemplo: rmdir misdocumentos 
+Para eliminar un directorio con archivos o subdirectorios usar: rm -r misdocumentos 
+ 
+- du: Muestra el espacio ocupado en disco por el directorio. 
+ 
+Opción :  
+-h: Establece como unidad los bytes. 
+ 
+Ejemplo: du -h /var 
+ 
+- df: Muestra el espacio usado por las particiones que se encuentran montadas. 
+ 
+- cat: Muestra el contenido de un archivo, también concatena archivos de texto. 
+ 
+Opciones: 
+-b: Numera las líneas que no están en blanco. 
+-n: Numera todas las líneas. 
+-s: Elimina las líneas consecutivas en blanco sustituyéndolas por una sola. 
+ 
+Ejemplo: cat -b archivo
+ 
+- more: Paginador 
+ 
+Ejemplos: 
+cat texto | more 
+ls | more 
+ 
+- less: Paginador con la ventaja de que puede moverse hacia arriba o hacia abajo. 
+ 
+- touch: Crea un archivo de texto en blanco. 
+ 
+Ejemplo: touch mensaje 
+ 
+- cp: Copia archivos. 
+ 
+Opciones: 
+-a: Conserva los atributos  y estructuras del origen de la copia. 
+-b: Hace copias de seguridad en archivos que van a ser sobrescritos o borrados. 
+-d: Al copiar los  enlaces simbólicos los mantiene como tales en lugar  de copiar los archivos a
+    los que apuntan,  y preservar las relaciones de las ligaduras  físicas entre archivos fuente
+    de copias.
+-i : Confirma la copia. 
+-l: En lugar de hacer copia de archivos que no son directorios, crea ligaduras físicas. 
+-p: Preserva los permisos. 
+-R, -r: Copia directorios recursivamente descendiendo de su árbol de directorios hijos. 
+-s: Hace enlaces simbólicos. 
+-u: No copia un archivo no-directorio si el destino es idéntico. 
+-v: Muestra el nombre de cada archivo antes de copiarlo. 
+-x: Se  salta subdirectorios que están  en sistemas de archivos  diferentes del que  se empezó a
+    hacer la copia.
+ 
+Ejemplos: 
+cp * /destino (copia todos los archivos al directorio destino) 
+cp *.c /destino (copia todos los archivos con extensión c al directorios destino) 
+cp props/* /destino (copia todos los archivos que están en props al directorio /destino) 
+cp arch1 props/arch2 (copia el archivo arch1 al directorio /props con el nombre de arch2) 
+cp /usr/bin/joe (copia el archivo joe del directorio /usr/bin al directorio actual) 
+ 
+- mv: Mueve archivos. 
+ 
+Opciones: 
+-i: Confirma el movimiento. 
+ 
+Ejemplo: mv  -i archivo /home/usuario1/ 
+ 
+- rm: Elimina un archivo o directorio. 
+ 
+Opciones: 
+-f: No solicita confirmación. 
+-r: Borra recursivamente árboles de directorio. 
+ 
+Ejemplos: 
+rm archivo 
+rm -r directorio (elimina el directorio y todos sus elementos). 
+rm -rf a* (elimina todos los archivos o directorios que empiecen con a). 
+ 
+-ln: Crea un enlace a otro archivo. 
+ 
+Opciones: 
+-s: Para indicar que es un enlace simbólico. 
+ 
+Ejemplo: ln original informes/miércoles 
+ 
+- grep: Busca patrón (palabra, frase, expresión regular) de los archivos. 
+ 
+Opciones: 
+-i: Omite las diferencias entre mayúsculas y minúsculas. 
+-c: Unicamente produce como salida un número, el recuento de las líneas donde aparece el patrón.
+-l: Visualiza los nombres que contienen el patrón de búsqueda. 
+-n: Produce como salida  un numero de línea junto con el texto  de aquellas líneas que contengan
+    el patrón.
+-v: Produce como salida todas las líneas que no contengan el patrón de la búsqueda. 
+ 
+Ejemplos: 
+grep "include" h*  (busca las líneas en los archivos  que comiencen con h en  las que aparece la
+cadena include)
+grep ma *.txt (busca las líneas en los  archivos con extensión txt que contengan la cadena ma en
+cualquier posición de la palabra)
+ 
+- fgrep: Busca varios patrones en varios archivos. Se ejecuta mucho mas rápido que grep o egrep;
+pero no interpreta caracteres especiales ni expresiones regulares.
+ 
+Ejemplo: fgrep "hola"  mundo *.txt m* (busca todas  las líneas que inician con hola  y todas las
+coincidencias con mundo en  los archivos que tengan extensión .txt y  todos aquellos que inician
+con m.
+ 
+- head: Muestra las primeras líneas de un archivo. 
+ 
+Opción: 
+-[n]: Número  de líneas  que mostrara  del archivo. Si  no se  le pone el  número de  líneas por
+default es 10.
+ 
+Ejemplos: head -10 archivo1 archivo2 
+ 
+- tail: Muestra el final de un archivo. 
+ 
+Ejemplos: 
+tail archivo (muestra las ultimas 10 líneas del archivo). 
+tail +10 archivo (muestra a partir de la líneas 10). 
+tail -10 archivo (muestra las ultimas 1 líneas). 
+ 
+- uniq: Busca líneas iguales. 
+ 
+Opciones: 
+-u: Solo muestra las líneas no repetidas. 
+-d: Muestra las líneas repetidas, pero solo copia una. 
+-s: Elimina varias líneas en blanco consecutivas sustituyéndola por una sola. 
+ 
+Ejemplos: 
+uniq entrada salida 
+uniq -u entrada salida 
+ 
+- diff: Busca diferencias entre 2 archivos. 
+ 
+Opciones: 
+-a: Compara los ficheros como si fuesen de texto aunque estos no lo sean. 
+-b: Ignora espacios en blanco en la comparación. 
+-e: Genera un script para el editor ed, con las diferencias de los archivos. 
+-r: Opción recursiva para los directorios. 
+ 
+Ejemplos: 
+diff archivo1 archivo2 
+diff -r /directorio1 /directorio2 
+ 
+- tee:  Copia la entrada  estándar en un  archivo al mismo  tiempo que la  envía de salida  a la
+salida estándar.
+ 
+Opciones: 
+-a, --append: Añade a entrada estándar a los archivos pasados en vez de sobrescribirlos. 
+--help: Imprime un mensaje sobre el uso en la salida estándar y acaba sin provocar error. 
+-i, --ignore: Ignora las señales de interrupción. 
+ 
+Ejemplo: tee archivo 
+ 
+- wc: Cuenta las líneas, palabras y caracteres de un archivo.
+ 
+Opciones: 
+-c: Cuenta caracteres 
+-l: Cuenta líneas. 
+-L: Longitud máxima de las líneas. 
+-w: Cuenta las palabras. 
+ 
+Ejemplos: 
+wc ejemplo 
+wc  ejemplo1 ejemplo2  (hace un  conteo de  los bytes,  líneas, longitud  máxima de  las líneas,
+palabras de los archivos ejemplo1 y ejemplo2)
+wc -c -w ejemplo1 (cuenta los bytes y las palabras del archivo ejemplo1) 
+ 
+- spell: Comprueba la  ortografía de todas las palabras de un archivo  y produce como salida las
+palabras incorrectas.
+ 
+Ejemplo: 
+spell archivo 
+spell archivo>archivo_errors (crea un archivo de errores) 
+spell listacomida | wc -w (cuenta el número de palabras incorrectas) 
+ 
+- sort: Produce como salida una versión ordenada de un archivo. 
+ 
+Ejemplo: sort frutas > listaordenada 
+ 
+- cmp: Compara 2  archivos, carácter por carácter comprobando las diferencias.  Se detiene en la
+primera diferencia que encuentre  y produce como salida la posición del  carácter y el número de
+línea.
+ 
+Opciones: 
+-i [n]: Ignora n número de caracteres de cada archivo. 
+-l: Verbose (no se detiene en la primer diferencia y enlista todas las diferencias) 
+-s: No imprime algo. 
+ 
+Ejemplo: cmp -l arhicvo1 archivo2 (compara los archivos, archivo1 y archivo2 e imprime todas las
+diferencias)
+ 
+- comm:  Compara 2  archivos, línea por  línea y  produce como salida  ambos archivos  según las
+líneas que sean iguales y las que sean diferentes.
+ 
+Ejemplo: comm archivo1 archivo2 
+ 
+- pr: Proporciona  como salida una versión paginada de la  entrada, añadiendo cabeceras, números
+de página y cualquier otro formato. El formato de salida esta pensado para impresión
+ 
+Opciones: 
++[n]: Empieza imprimiendo en la página n. 
+-d: La salida será a doble espacio. 
+-e[in-tab-char[in-tab-width]]: Expande los  tabuladores en la entrada a  espacios.  El argumento
+opcional in-tab-char  es el carácter  de tabulación  en la entrada,  por defecto el  carácter de
+tabulación estándar  (tab). El  argumento opcional  in-tab-width es la  anchura del  carácter de
+tabulación, por defecto 8.
+-F, -f: Para separar las páginas de salida, usa el carácter "avanzar página" ("formfeed") en vez
+del de "nueva línea" ("new line").
+-h [text]: Reemplaza en la cabecera el nombre del fichero por la cadena  text. 
+-i[out-tab-char[out-tab-width]]:  Reemplaza  los espacios  con  tabuladores  en  la salida.   El
+argumento  opcional out-tab-char  es el  carácter de  tabulación en  la salida,  por  defecto el
+carácter de tabulación  normal. El argumento opcional out-tab-width es el  ancho del carácter de
+tabulación en la salida, por defecto 8.
+-l [n]:  Establece la longitud  de página a  líneas. Por defecto  66. Si n  es menor que  10, se
+omiten las cabeceras y pies de página, como si se hubiese dado la opción -t.
+-m: Imprime todos los ficheros en paralelo, uno por columna. 
+-o[n]: Desplaza cada línea con un margen de n  espacios de ancho. El ancho total de la página es
+este desplazamiento mas la anchura establecida con la opción -w.
+-r:  No imprime  un mensaje  de advertencia  cuando un  fichero de  los argumentos  no  se puede
+abrir. No obstante, el fallo en la apertura del fichero todavía hace que el estado de salida sea
+diferente de cero.
+-s[separator]: Separa las columnas con el  carácter simple separator, por defecto un carácter de
+tabulación, en vez de los habituales espacios.
+-t: No imprimir  las 5 líneas de  cabecera ni las 5 líneas  de pie de página  que normalmente se
+imprimen en  cada página,  y no  rellenar los  finales de las  páginas (con  líneas en  blanco o
+avances de página).
+-w [n]: Establece la anchura de página a n columnas. Por defecto 72. 
+ 
+Ejemplo: pr -h "linux.org" manual 
+ 
+- find: Busca archivos y carpetas. 
+ 
+Opciones: 
+-  dir1, dir2:  Lista  de directorios  separados  por comas  donde queremos  que  se realice  la
+búsqueda. Incluye subdirectorios.
+-name "archivo": Busca el archivo especificado se puede usar comodines. 
+-type [t]: Busca archivos del tipo especificado. 
+  b:especial de bloques. 
+  c:especial de caracteres. 
+  d:directorio. 
+  p:pipe. 
+  l:ligadura simbólica. 
+  s:socket 
+  f: archivo normal 
+-links [n]: Busca archivos con n numero de enlaces, con los símbolos + y - delante del número se
+  indica que busque con mas de n enlaces o con menos de n enlaces.
+-size [n]:  Busca archivos  con un  tamaño de n,  medida en  bloques de 512  bytes, si  se añade
+después de dicho tamaño una letra k lo expresa  en kilobytes. El manejo de signos + y - es igual
+al anterior.
+-user [id_usuario]: Busca archivos que tengan id_usuario como propietario. 
+-atime [n]: Busca archivos cuyo ultimo acceso esta de los n días anteriores. 
+-mtime [n]: Busca archivos modificados dentro de los n días anteriores 
+-exec [comando]:  Para cada archivo que va  encontrando ejecuta el comando  indicado. Dentro del
+comando se utiliza las  llaves {} para indicar donde se coloca el  resultado de la búsqueda.  El
+comando debe terminar con \; .
+-newer  [archivo]:  Busca archivos  que  han  sido modificados  antes  que  la  fecha de  última
+modificación del archivo indicado.
+-perm [m]: Busca  archivos cuya mascara de permisos sea  m, si se pone delante  de la mascara el
+signo -, busca los  archivos que al menos tengan esa mascara. La mascara  se forma por 3 números
+que son los permisos para propietario, grupo y los demás usuarios.
+-group [grupo]: Busca archivos que tengan como grupo propietario el indicado. 
+-iname [archivo]:  Busca archivos  que tengan como  nombre el  indicado, pero sin  distinción de
+mayúsculas y minúsculas, admite comodines.
+-print: Muestra los nombres de los archivos que va encontrando en la salida estándar. 
+ 
+Ejemplo:  find /  -name documento.txt  -print (busca  a partir  del directorio  raíz,  todos los
+archivos que se llaman documento.txt y los muestra en pantalla)
+ 
+- which: Busca programas, se realiza en la ruta de acceso que la invoca. 
+ 
+Ejemplo: which tetris 
+ 
+- lpr: Imprime un documento. 
+ 
+Opciones: 
+-P: Impresora a utilizar. 
+-h: Suprimir la impresión de la página. 
+-s: Se crea un enlace simbólico en spooling y esto acelera la impresión de grandes archivos. 
+ 
+Ejemplos: 
+lpr -P impresora documento1 
+lpr -P impresora documento1 documento2 
+cat carta.txt | lpr 
+lpr < carta.txt 
+ 
+- lpq: Muestra el estado de la cola de impresión. 
+ 
+- lpstat: Muestra el estado de la impresora. 
+ 
+- cancel: Cancela los trabajos de impresión o uno solo si se especifica el id. 
+ 
+- lprm: Elimina un trabajo de la cola de impresión si se especifica el id si no elimina todos. 
+ 
+Ejemplo: lprm 18 
+ 
+- tar: Reúne varios archivos en uno solo. 
+ 
+Opciones: 
+c: Crea un archivo nuevo general. 
+t: Enumera los nombres de archivos en un archivo general. 
+r: Añade archivos a un archivo general. 
+u: Actualiza un archivo general. Añade no existentes y reemplaza por nuevos. 
+delete: Elimina un archivo del archivo general. 
+w: Espera confirmación  del usuario antes de añadirlos; le  permite actualizar selectivamente un
+archivo general.
+x: Extrae los archivos de un archivo general.
+M: Habilita trabajar con varios volúmenes (útil para cintas)
+f: Salva el archivo general en formato tar en un archivo normal en lugar de mandarlo a la cinta.
+v: Muestra cada nombre de archivo a medida que se añade al archivo general. 
+z: Comprime o descomprime los archivos definitivos utilizando gzip. 
+j: Comprime o descomprime los archivos definitivos utilizando bzip2. 
+ 
+Ejemplos:
+tar cvf miarch.tar /home/user  (crea un archivo general de home/user) 
+tar rvf miarch.tar misdocs (añade el directorio misdocs a miarch.tar) 
+tar uvf miarch.tar midir (actualiza el archivo miarch.tar a midir) 
+tar tvf miarch.tar (muestra los archivos almacenados en miarch.tar) 
+tar czf miarch.tar.gz midir (comprime cada elemento con gzip). 
+ 
+- gzip: Comprime y descomprime archivos y le añade la extensión .gz 
+ 
+Opciones: 
+-d: Descomprime un archivo. 
+-l: Muestra el tamaño comprimido y descomprimido. 
+-r: Busca  recursivamente los  directorios  especificados y  comprime  todos  los archivos  que
+encuentra dentro de ellos; la búsqueda inicia desde el archivo actual; cuando se usa con gunzip,
+los archivos comprimidos de un directorio especificado se descomprimen.
+-v: Muestra  el nombre de cada  archivo comprimido o  descomprimido, junto con su  porcentaje de
+compresión.
+-num: Determina la velocidad  y compresión que va de -1 a -9. -9  como valor de mayor compresión
+por lo tanto más lento para comprimir y descomprimir. Por default es -6
+ 
+Ejemplo: gzip -l misarch.gz 
+ 
+- bzip2: Comprime archivos y le agrega la extensión bz2. 
+ 
+Ejemplos: 
+bzip2 misdatos (comprime el directorio misdatos) 
+bunzip2 misdatos (descomprime el directorio misdatos) 
+ 
+- zip: Comprime y añade la extensión .zip muy popular en sistemas windows. 
+ 
+Ejemplos: 
+zip misdatos (comprime el directorio misdatos) 
+unzip misdatos.zip (descomprime el archivo misdatos.zip). 
+ 
+** Comandos para la administración de usuarios 
+ 
+- useradd: Añade usuarios nuevos al sistema. 
+ 
+Opciones: 
+-u: UID del usuario, el id debe ser numérico si tiene otro usuario este UID añadirle la opción. 
+-o para forzar al sistema que lo acepte. 
+-s: Específica  la shell con  la que trabajará  el usuario si no  se especifica utilizara  la de
+default del sistema.
+-c: Especifica la información del usuario como nombre real, teléfono, etc. 
+-g: Especifica el grupo  al que pertenecerá, si no se especifica el grupo  para red hat que crea
+un grupo  con el  nombre del usuario,  si no  se especifica el  grupo se agrega  a un  grupo por
+defecto que es users.
+-G: Se especifican otros  grupos separados por comas y sin espacios  entre el identificador y la
+coma.
+-e: Especifica la fecha de caducidad con formato yyyy-mm-dd 
+-d: Configura el directorio principal del nuevo usuario 
+-f: Número  de días que  pasaran desde  la expiración de  la contraseña hasta  la inhabilitación
+bloqueo) de la cuenta.
+ 
+Ejemplo: useradd -c "Fulano de Tal" -u 503 -s /bin/bash hpalma 
+ 
+- usermod: Modifica la cuenta de usuario. 
+ 
+Opciones:
+-d: Permite cambiar el directorio principal del usuario. 
+-s: Permite cambiar la shell del usuario. 
+-u: Cambia el UID del usuario. 
+-c: Cambia la información del usuario. 
+-q: Cambia de grupo al usuario. 
+-p: Permite cambiar de contraseña al usuario. 
+-G: Permite  que el  usuario sea  miembro de los  grupos indicados,  eliminándolo de  los grupos
+anteriores.
+-e: Permite cambiar la fecha de caducidad absoluta de la cuenta. 
+-f: Permite cambiar la fecha de caducidad de  la contraseña de forma relativa a la expiración de
+la contraseña.
+-l: Permite cambiar el login del usuario. 
+ 
+- chsh: Cambia de shell predeterminada del usuario. 
+ 
+Opciones: 
+-s: Especifica la ruta del shell. 
+ 
+Ejemplo: chsh -s /bin/csh (nombra a la shell csh como predeterminada) 
+ 
+- chfn: Cambia la información del usuario actual. 
+ 
+Opciones: 
+-f: Cambia el nombre real del usuario. 
+-r: Número de cuarto. 
+-w: Número de oficina. 
+-h: Número de casa. 
+ 
+Si se teclea chfn automáticamente pedirá los datos anteriores. 
+ 
+Ejemplo: chfn -f "Fulano de Tal" -h "294 94 22268" 
+ 
+- newgrp: Cambia de grupo prioritario del usuario actual. 
+ 
+Ejemplo: newgrp desarrollo 
+ 
+- userdel: Elimina al usuario del sistema. 
+ 
+Opciones: 
+-r: Forza a que se borre el directorio del usuario.  
+ 
+Ejemplo: userdel -r hpalma 
+ 
+- mesg: Habilita la escritura de mensajes en la terminal. 
+ 
+Opciones: 
+n: Deshabilita el servicio. 
+y: Habilita el servicio 
+ 
+Ejemplos: 
+mesg n 
+mesg y 
+ 
+- write: Permite escribir en un terminal 
+ 
+Ejemplo: write usuario "mensaje" 
+ 
+- finger: Muestra información sobre el usuario que se encuentra en la red. 
+ 
+Ejemplo: finger bofe 
+ 
+- who: Muestra la información de un usuario conectado. 
+ 
+Opciones: 
+-u: Lista los usuarios actuales. 
+-T: Indica si la opción msg esta habilitada. 
+ 
+Ejemplo: who -T  
+ 
+- whoami: Nos dice quien somos actualmente en el sistema. 
+ 
+Ejemplo: whoami 
+ 
+- groupadd: Crea un grupo nuevo. 
+ 
+Opciones:  
+-g: Asigna un identificador del grupo (GID). 
+-o: Forza a utilizar el identificador en caso de que ya existe un grupo con este identificador. 
+ 
+Ejemplo: 
+groupadd desarrollo 
+groupadd -g 125 desarrollo 
+ 
+- groupdel: Elimina un grupo. 
+ 
+Ejemplo: 
+groupdel desarrollo 
+ 
+- groupmod: Modifica un grupo. 
+ 
+Opciones: 
+-g[n]: Modifica el identificador a n. 
+-o: Forza a que se le añada un identificador repetido. 
+ 
+- gpasswd: Añade o elimina un usuario de grupo. 
+ 
+Opciones: 
+-a: Añade usuario. 
+-d: Elimina usuario. 
+ 
+Ejemplos: 
+gpasswd -a grupito 
+gpasswd -d grupito 
+ 
+- groups: Lista los grupos al cual pertenece el usuario actual. 
+ 
+** Permisos 
+ 
+- chmod: Cambia el permiso de un archivo o directorio. 
+ 
+Opciones: 
++: Agrega un permiso. 
+-: Elimina un permiso. 
+=: Asigna un conjunto completo de permisos, afecta a todos los usuarios.
+r: Define un permiso de lectura, se puede visualizar e imprimir. 
+w: Define un permiso de escritura. Se puede editar o borrar. 
+x: Define un permiso de  ejecución. Si es un script de la shell se  ejecutará. En el caso de los
+directorios se puede cambiar a un directorio y entrar en él.
+o: Define permisos de acceso a un archivo o directorio para el resto de usuarios. 
+a: Define permisos de acceso para el usuario, el grupo y todos los demás usuarios. 
+s: Activa  el bit de  ejecución especial para  el usuario y grupo,  el resto de  usuarios pueden
+ejecutar el programa como si fueran el usuario y/o el grupo que poseen realmente el
+programa.
+t: Define el permiso bit de persistencia, el programa permanece en memoria. 
+ 
+PERMISOS DE UN ARCHIVO O DIRECTORIO
+
+|-------------+-------+-------+-------------+------------|
+| Propietario | grupo | otros | propietario | grupo      |
+|-------------+-------+-------+-------------+------------|
+| rwx         | rwx   | rwx   | fulano      | desarrollo |
+|-------------+-------+-------+-------------+------------|
+
+o bien utilizando octales para cada uno. 
+
+|---------+-------+-------|
+| Binario | Octal | Texto |
+|---------+-------+-------|
+|     000 |     0 | ---   |
+|     001 |     1 | --x   |
+|     010 |     2 | -w-   |
+|     011 |     3 | -wx   |
+|     100 |     4 | r--   |
+|     101 |     5 | r-x   |
+|     110 |     6 | rw-   |
+|     111 |     7 | rwx   |
+|---------+-------+-------|
+ 
+Ejemplos: 
+chmod g-r, o-r /etc/shadow ó chmod go -r /etc/shadow (desactiva el permiso de lectura al grupo y
+a los demás)
+chmod 544  misdatos (añade permiso de  lectura y escritura a  propietarios, lectura a  grupo y a
+otros usuarios)
+chmod 700 (añade permisos de lectura, escritura y ejecución al propietario y ninguno a grupo y a
+los demás usuarios)
+chmod 755 misdatos (lectura, escritura y ejecución  al propietario y lectura y ejecución para el
+grupo y demás usuarios)
+ 
+*** Permisos especiales de ejecución 
+
+Este permiso se añade al principio de los permisos de propietario, grupo y demás usuarios. 
+
+- suid bit (set user ID) 4000
+- sgid bit (set group ID) 2000
+- sticky bit (bit de persistencia) 1000
+ 
+Ejemplos: 
+chmod  5555 /usr/bin/ppd  (configura  el bit  de persistencia  y  el de  ejecución especial  del
+ usuario)
+chmod 1755 /usr/x11R6/bin/xtetris (configura el bit de persistencia para el programa tetris.) 
+ 
+- chown: Cambia el propietario de uno o más archivos o directorios. 
+ 
+Opciones: 
+El  signo  : Separa  al  grupo  del  propietario, así  se  pueden  cambiar grupo  y  propietario
+simultáneamente.
+ 
+Ejemplos: 
+chown fulano configuracion (cambia de propietario al directorio configuracion) 
+chown fulano carta.txt misdatos (cambia de  propietario al archivo carta.txt y al directorio mis
+datos)
+chown fulano:users bitacora (cambia de propietario y grupo al directorio bitácora) 
+ 
+- chgrp: Cambia el grupo para uno o más archivos o directorios. 
+ 
+Ejemplos: 
+chgrp desarrollo web (cambia a grupo desarrollo la carpeta web) 
+chgrp desarrollo bd bitacora (cambia a grupo desarrollo la carpeta bd y bitacora) 
+ 
+** Montaje de unidades 
+ 
+- mount: Monta un sistema de archivos (dispositivo) en el directorio especificado. 
+ 
+Argumentos: 
+-f: Simula el montaje. 
+-v: Modo verboso, despliega las descripciones de las acciones que esta realizando. 
+-w: Monta el sistema de archivos con permisos de lectura y escritura. 
+-r: Monta el sistema de archivos con permisos de solo lectura. 
+-t: Especifica el tipo de sistema de archivos que se montara. 
+-a: Monta los sistemas de archivos que aparecen en /etc/fstab 
+-o: Opciones 
+async: el programa no espera que los datos estén escritos (inseguro). 
+sync: El programa espera que los datos se escriban (seguro) 
+auto: Indica  que se debe montar  el dispositivo cuando se  use la opción -a.  Este indicador se
+utiliza. En los scripts de arranque para  asegurar que todos los sistemas de archivos requeridos
+estén montados en el arranque del sistema.
+noauto: opcion opuesta a auto. 
+defaults: activa las opciones rw, suid, dev, exec, auto, nouser y async. 
+dev: permite  el uso de los  nodos de dispositivos en  el sistema. El acceso  a los dispositivos
+esta determinado totalmente por los derechos de acceso al nodo del dispositivo de disco.
+nodev: Opción opuesta de dev. 
+exec: Indica que se debe permitir la ejecución de programas en el sistema de archivos. 
+noexec: Opuesta a la opción exec. 
+remount:  Permite que  el comando  mount cambie  los  indicadores para  un sistema  que ya  esta
+montado, sin interrumpir su uso.
+ro: monta el sistema de archivos solo para lectura. 
+rw: monta el sistema de archivos para lectura y escritura. 
+suid: permiten que se consideren los bits de modo de identificación de usuario e 
+identificador de grupo. 
+noduid: Opción opuesta a suid. 
+user: permite que  los usuarios normales realicen montajes de sistemas  de archivos. Por razones
+de seguridad user implica no exec, nosuid, y nodev.
+ 
+Ejemplos: 
+mount /dev/sda1 /midir (monta un disquete en el directorio midir) 
+mount /dev/sda1 /mnt/floppy (monta un disquete en /mnt/floppy) 
+mount /dev/cdrom  /mnt/cdrom  ó mount /mnt/cdrom (monta una unidad de cdrom) 
+mount -t vfat /dev/hda1 /mnt/windows (monta una partición de FAT32 en 
+mnt/windows) 
+ 
+- umount: Desmonta un dispositivo montado. 
+ 
+Ejemplos: umount /dev/sda1 ó umount /media/sda1 (desmonta la unidad)
+ 
+** Apagar y reiniciar el sistema 
+ 
+- shutdown: Detiene el sistema en un  instante especificado o después de esperar cierto lapso de
+  tiempo.
+ 
+Opciones: 
+-h: Detiene el sistema. 
+-r: Reinicia el sistema. 
+-f: Reinicia rápidamente sin verificación del sistema de archivos. 
+-q: Cierra el sistema sin aviso a los usuarios presentes. 
+-s: Reinicia en modo monousuario. 
+ 
+Ejemplos:
+shutdown -h -f 11:15:20 "se apagara el sistema" (apaga el sistema sin verificación al arranque)
+shutdown -r -q +25 (reinicia el sistema 25 minutos después sin dar aviso a los usuarios) 
+ 
+- reboot: Reinicia inmediatamente el sistema 
+ 
+- fastboot: Reinicia el sistema y sin verificación del sistema de archivos. 
+ 
+- halt: Apaga el sistema 
+ 
+- fasthalt: Apaga el  sistema y cuando de vuelve a iniciar lo  hace sin verificación del sistema
+  de archivos.
+ 
+** Comandos para manejo de procesos 
+ 
+- ps: Lista los procesos que están siendo ejecutados, incluidos los trabajos en segundo plano.
+ 
+Opción: 
+-aux: muestra todos los procesos. 
+ 
+Ejemplo: 
+ps -aux 
+ 
+- kill: Mata el proceso especificado por su PID 
+ 
+Opciones: 
+-2 ó -SIGINT : interruption  
+-3 ó -SIGQUIT: salir. 
+-9 ó -SIGKILL: muerte de un proceso 
+-15 ó -SIGTERM: termina un proceso. 
+-17 ó -SIGCHILD: señal enviada al padre por un hijo cuando este termina. 
+-18 ó -SIGCONT: continúa la ejecución de un proceso. 
+-19 ó -SIGSTOP: detiene la ejecución de un proceso. 
+
+Ejemplos: 
+kill -9 920 (mata el proceso con ID 920) 
+kill %2 (mata el proceso con ID 2 que esta en segundo plano) 
+ 
+- killall: Mata todos los procesos que estén ejecutando el comando especificado. 
+ 
+Ejemplo: killall cp 
+ 
+- notify: Notifica cuando termina un trabajo. 
+
+Ejemplo: 
+notify 2 (notifica cuando se termina el proceso 2 que se encuentra en segundo plano) 
+notify %2 (notifica cuando se termina el proceso 2 que se encuentra en segundo plano) 
+ 
+- jobs: Lista todos los trabajos que se estén ejecutando en segundo plano 
+ 
+Ejemplo: jobs 
+ 
+- bg: Coloca en segundo plano un comando que se este ejecutando en primer plano. 
+ 
+Ejemplo: bg %2 
+ 
+- fg: Trae a  primer plano un comando que se encuentra en segundo  plano, o reanuda la ejecución
+de un programa interrumpido.
+ 
+Ejemplo: fg %2 
+ 
+El símbolo & Ejecuta un comando en segundo plano. 
+ 
+Ejemplo: sort *.l > docs &; lpr *.c & 
+ 
+- time: Informa el tiempo de ejecución del comando. 
+ 
+Ejemplo: time ls -s /  (medirá el tiempo que se tarda en ejecutarse un  ls de todo el sistema de
+archivos)
+  
+** Redireccionamiento y canalización 
+ 
+El símbolo > redirige la salida estándar. 
+ 
+Ejemplo: ls > listadeachivos 
+ 
+Los simbolos >> redirigen la salida estándar, añadiendo al final del archivo. 
+ 
+Ejemplo: ls >> listaarch 
+ 
+El símbolo < Redirige la entrada estándar desde un archivo o dispositivo a un programa. 
+ 
+Ejemplos: 
+cat < micarta 
+cat < micarta > cartanueva (visualiza el contenido de mi carta y lo almacena en carta nueva.)
+ 
+El símbolo | canaliza la salida estandar de un comando como entrada para otro comando. 
+ 
+Ejemplos: 
+ls | lpr (imprime el listado del directorio) 
+sort milista | cat -n | lpr (ordena el archivo de mi lista, la enumera y la imprime.) 
+
+** Fecha y hora 
+ 
+- date: Establece la fecha y hora del sistema. 
+ 
+Formato: 
+[MMDDhhmm][CC][AA][.ss] 
+ 
+Donde: 
+MM: Mes del 01 al 12 
+DD: Día del 01 al 31 
+hh: Hora de 00 a 23 
+mm: Minuto de la hora de 00 a 59 
+CC: 2 primeros dígitos del año (opcional) 
+AA: 2 últimos dígitos del año (opcional) 
+.ss: Segundos (opcional) 
+ 
+Ejemplo: 
+date 0306145900 (establece la fecha a 6 de marzo del 2000 y la hora a 2:59 pm )
+ 
+- cal: Muestra un calendario 
+ 
+Opciones: 
+-j: Las fechas se muestran en formato juliano. 
+-y: Muestra el calendario del año actual. 
+mes: Especifica el mes (número o nombre en inglés) 
+año: 4 dígitos. 
+ 
+Ejemplos: 
+cal (muestra el calendario del mes actual) 
+cal 4 1974 (muestra el calendario de abril de 1974) 
+cal 2010 (muestra el calendario del año 2010) 
+    
+** RPM 
+ 
+- rpm: Instala, desinstala y verifica los paquetes instalados a través del manejador de paquetes
+de redhat (rpm).
+ 
+Opciones de instalación: 
+-i  [nombre del  paquete]: Instala  un paquete;  es necesario  escribir el  nombre  completo del
+paquete.
+-U : Actualiza y elimina las versiones anteriores del paquete a instalar. 
+-F : Actualiza pero solo si el paquete ya esta instalado. 
+-verify ó v ó y : Verifica si un paquete esta instalado correctamente. 
+--nodeps : Se lleva a cabo la instalación sin comprobaciones las dependencias. 
+--force : Fuerza la instalación aunque haya conflictos. 
+--percent : Muestra el porcentaje instalado del paquete durante la instalación. 
+--test  : Prueba  la  instalación; no  lleva  a cabo  la instalación,  solo  prueba si  producen
+conflictos.
+-h : Muestra símbolos # durante la instalación del programa. 
+--excludedocs : Excluye los archivos de documentación. 
+ 
+Opciones de desinstalación: 
+-e : Desinstala un paquete; solo se precisara el nombre del paquete. 
+--test :  Prueba la desinstalación, no elimina  componentes, solo comprueba lo  que es necesario
+eliminar.
+--nodeps : Lleva a cabo la desinstalación sin comprobar las dependencias. 
+--allmatches : Elimina todas las versiones del paquete. 
+ 
+Opciones de solicitud de información: 
+-q : Solicita información sobre un paquete. 
+-a : Solicita información sobre todos los paquetes. 
+-f [nombre del paquete]: Solicita información sobre el paquete. 
+-R : Muestra los paquetes de los que depende este paquete. 
+-p [nombre del paquete] : solicita información sobre un paquete no instalado. 
+-I : Muestra toda la información de un paquete.
+-l : Muestra los archivos contenidos en el paquete.
+-d : Muestra únicamente los archivos de documentación del paquete. 
+-c : Muestra únicamente los archivos de configuración del paquete. 
+--dump : Muestra únicamente los archivos con detalles completos. 
+
+** APT
+
+- apt-get: Instala, desinstala y verifica los paquetes instalados a través del manejador de paquetes
+de debian
+
+Opciones de instalación:
+install [nombre del paquete]: Instala un paquete.
+update: Actualiza a base de datos de paquetes disponibles.
+upgrade: Actualiza los paquetes instalados en el sistema a la última versión disponible.
+dist-upgrade:  Actualiza   los  paquetes   instalados  en  el   sistema  a  al   última  versión
+disponible. Resuelve dependendencias y conflictos que puedan surgir.
+
+Opciones de desinstalación:
+remove [nombre del paquete]: Desinstala el paquete.
+--purge: Elimina los archivos de configuración de un paquete y lo desinstala.
+
+** Notas al Pie
+
+[fn:1] Basado en el Manual Básico de Linux de Hugo Alfonso Palma García
+
+[fn:2] La palabra original es netname.
+
+[fn:3] System V, Sysinit o paquetes similares contienen el programa init
+
