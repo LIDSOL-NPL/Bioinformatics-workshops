@@ -6,7 +6,7 @@ el RSG-México (grupo regional estudiantil de biología computacional) apoyada p
 ## programa de talleres para el mes de septiembre:  
 
 * Profundizando en GNU/Linux y Línea comandos interactiva (BASH)  
-Miércoles de 6:30pm a 8:00 pm
+cada Miércoles de Septiembre de 2016 de 6:30pm a 8:00 pm (iniciamos el miercóles 7)
 
 * La sede de los talleres actualmente son en LIDSOL, El cual esta ubicado en el Anexo de Ingeniería de la UNAM, Edificio P, segundo Piso, cubículo de "LIDSOL", puedes revisar el mapa [aquí](https://www.google.com/maps/place/19%C2%B019%2740.1%22N+99%C2%B010%2756.3%22W/@19.3278,-99.1823,16z/data=!4m5!3m4!1s0x0:0x0!8m2!3d19.3278!4d-99.1823).
 
