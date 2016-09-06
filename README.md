@@ -1,7 +1,7 @@
 # Ciclos de talleres LIDSOL y RSG-México
 
 LIDSOL (Laboratorio de Investigación y Desarrollo de Software Libre) en colaboración con 
-el RSG-México (grupo regional estudiantil de biología computacional) apoyada por la ISCB (International Society for Computational Biology) con el objetivo es promover el desarrollo de la próxima generación mexicana que dará impulso a la ciencia y a la industria de la computación. Tenemos el gusto de invitarte a participar en el primer ciclo de talleres sobre biología computacional, ciencia de datos, software libre, entre otros.  
+el RSG-México (grupo regional estudiantil de biología computacional) apoyada por la ISCB (International Society for Computational Biology) con el objetivo de promover el desarrollo de la próxima generación mexicana que dará impulso a la ciencia y a la industria de la computación. Tenemos el gusto de invitarte a participar en el primer ciclo de talleres sobre biología computacional, ciencia de datos, software libre, entre otros.  
 
 ## programa de talleres para el mes de septiembre:  
 
