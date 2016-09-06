@@ -10,6 +10,7 @@ Miércoles de 6:30pm a 8:00 pm
 
 * La sede de los talleres actualmente son en LIDSOL, El cual esta ubicado en el Anexo de Ingeniería de la UNAM, Edificio P, segundo Piso, cubículo de "LIDSOL", puedes revisar el mapa [aquí](https://www.google.com/maps/place/19%C2%B019%2740.1%22N+99%C2%B010%2756.3%22W/@19.3278,-99.1823,16z/data=!4m5!3m4!1s0x0:0x0!8m2!3d19.3278!4d-99.1823).
 
+* El outline del taller lo pueden revisar [acá](https://github.com/LIDSOL-NPL/Bioinformatics-workshops/tree/master/Sistema_GNU-Linux_y_BASH)
 
 ### Acerca de la dinámica de los talleres:
 
