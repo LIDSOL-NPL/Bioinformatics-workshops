@@ -18,5 +18,6 @@ Miércoles de 6:30pm a 8:00 pm
 
 * Si necesitas quien te ayude a instalar un sistema operativo libre en tu computadora, te ayudamos con gusto. OJO no olvides respaldar tu información y traer una usb vacía para hacer tu propia instalación.
 
-contacto: r8a8m8p8@riseup.net
+contacto: r8a8m8p8@riseup.net  
+
 Aquí puedes encontrar más información acerca de [RSG-México](http://rsg-mexico.iscbsc.org/) y la [ISCB](http://rsg.iscbsc.org/)
