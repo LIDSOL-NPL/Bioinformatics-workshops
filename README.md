@@ -24,3 +24,10 @@ cada miércoles de septiembre de 2016 de 6:30pm a 8:00 pm (iniciamos el miercól
 contacto: r8a8m8p8@riseup.net  
 
 Aquí puedes encontrar más información acerca de [RSG-México](http://rsg-mexico.iscbsc.org/) y la [ISCB](http://rsg.iscbsc.org/)
+
+
+#### Próximos talleres (Coming soon...):
+* R
+* Python
+* Control de versiones con Git
+
