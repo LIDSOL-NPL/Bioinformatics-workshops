@@ -1,0 +1,20 @@
+variables de entorno
+
+$SHELL
+exit
+$SHLVL
+
+HOLA=SALUDO
+echo $HOLA
+
+
+/etc/profile
+
+/home/rmejia/.profile
+              .bash_profile
+
+/home/rmejia/.bashrc
+              .xinit
+              
+              
+PATH=$PATH:/opt
